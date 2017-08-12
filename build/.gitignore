@@ -13,4 +13,5 @@ Makefile
 libxyzutils.a
 xyz2wsg
 xyz2wsg84
+*.VC.db
 
