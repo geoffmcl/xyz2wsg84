@@ -42,7 +42,7 @@
 static int incnt = 0;
 static int mode = 0;
 static char *pgm;
-static char *vrsn = "1.0.0 11/08/2017";
+static const char *vrsn = "1.0.0 11/08/2017";
 static double in[3] = { 0.0, 0.0, 0.0 };
 
 void show_help()

@@ -77,11 +77,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "physcon.h"
-#include "libgpsC.h"
 #ifdef _MSC_VER
 #include "wingetopt/getopt.h"
+#else
+#include <getopt.h>
 #endif
+#include "physcon.h"
+#include "libgpsC.h"
 
 /*
  *  function prototypes
