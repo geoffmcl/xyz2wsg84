@@ -1,5 +1,5 @@
 /*  @(#)plh2xyz.c       1.1  98/12/08  */
-static char *sccsid= "@(#)plh2xyz.c     1.1  98/12/08";
+// not used static char *sccsid= "@(#)plh2xyz.c     1.1  98/12/08";
 /*
  *  include files
  */

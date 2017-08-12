@@ -1,5 +1,5 @@
 /*  @(#)degdms.c        1.1  98/12/08  */
-static char *sccsid= "@(#)degdms.c      1.1  98/12/08";
+// not used static char *sccsid= "@(#)degdms.c      1.1  98/12/08";
 /*
  *  include files
  */
@@ -65,9 +65,9 @@ void degdms( double ddeg, int *deg, int *min, double *sec )
         } else {
                 sign= 1;
         }
-        *deg= ddeg;
+        *deg= (int)ddeg;
         ddeg= (ddeg-(double)(*deg))*(double)60;
-        *min= ddeg;
+        *min= (int)ddeg;
         *sec= (ddeg-(double)(*min))*(double)60;
         *deg= sign*(*deg);
 }
