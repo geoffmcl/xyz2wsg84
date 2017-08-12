@@ -201,6 +201,11 @@ int main( int argc, char *argv[] )
       }
       in[i] = atof(argv[optind]);
   }
+  
+  if (i < 3) {
+    fprintf(stderr, "%s ERROR: Failed to get 3 inputs! Got %d...\n", pgm, i);
+    return 1;
+  }
 
 /*
  *   2.0  Convert and print coordinates
@@ -210,12 +215,15 @@ int main( int argc, char *argv[] )
     if( west == 1 )
       in[1]= fmod( 360.0-in[1], 360.0 );
 
-    plh2xyz( in, out, emajor, eflat );
+      printf("in : %16.10f %16.10lf %13.5lf lat lon alt\n", in[0], in[1], in[2]);
+      
+      plh2xyz( in, out, emajor, eflat );
 
-    printf( "%13.4lf %13.4lf %13.4lf\n", out[0], out[1], out[2] );
+      printf( "out: %13.4lf %13.4lf %13.4lf X Y Z\n", out[0], out[1], out[2] );
+      
   } else {
 
-      printf("in : %16.10f %16.10lf %13.5lf\n", (west ? -in[0] : in[0]), in[1], in[2]);
+      printf("in : %16.10f %16.10lf %13.5lf X Y Z\n", (west ? (in[0] * -1.0) : in[0]), in[1], in[2]);
       xyz2plh( in, out, emajor, eflat );
       //plh2xyz(out, res, emajor, eflat);
 
@@ -224,18 +232,18 @@ int main( int argc, char *argv[] )
           //res[0] *= -1;
       }
       if (display == 1) {
+        /* show results in DMS form */
           degdms(out[0], &deg, &min, &sec);
-          printf("%3d %2d %8.5lf", deg, min, sec);
+          printf("out: %3d %2d %8.5lf", deg, min, sec);
 
           degdms(out[1], &deg, &min, &sec);
           printf(" %3d %2d %8.5lf", deg, min, sec);
 
-          printf(" %13.8lf\n", out[2]);
+          printf(" %13.8lf lat lon alt\n", out[2]);
       }
       else {
-          printf("out: %16.10f %16.10lf %13.5lf\n", out[0], out[1], out[2]);
+          printf("out: %16.10f %16.10lf %13.5lf lat lon alt\n", out[0], out[1], out[2]);
       }
-      // printf("res: %16.10f %16.10lf %13.5lf\n", res[0], res[1], res[2]);
   }
 
   exit(0);
