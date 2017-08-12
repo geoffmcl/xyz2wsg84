@@ -124,11 +124,11 @@ long ymdmjd( int, int, int );
 void datim( int *, int *, int *, int *, int *, double * );
 void initialize_A( struct common_data_info *, struct antenna * );
 void initialize_C( struct common_data_info *, struct coordinates * );
-void initialize_G( struct common_data_info *, struct offset * );
+void initialize_G( struct common_data_info *, struct si_offset * );
 void initialize_M( struct common_data_info *, struct met * );
 void initialize_OLT( struct common_data_info *, struct oceanloading * );
 void initialize_R( struct common_data_info *, struct receiver * );
-void initialize_T( struct common_data_info *, struct offset * );
+void initialize_T( struct common_data_info *, struct si_offset * );
 double gam_q( double, double );
 int linfit( double, double, double, LRDS *,
         double *, double *, double *, double *, double *, double * );
