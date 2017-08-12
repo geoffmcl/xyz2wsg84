@@ -102,16 +102,18 @@ int main( int argc, char *argv[] )
   char *pgm;
   char *ptr;
   // char *vrsn= "1.5 02/02/07";
-  char *vrsn = "1.6 11/08/2017";
+  const char *vrsn = "1.6 11/08/2017";
   double in[3]= { 0.0, 0.0, 0.0 };
   double out[3];
+  double X, Y, Z;
+  double lat, lon, alt;
   //double res[3];
   double sec;
   int c;
   int deg;
   int display= 0;
   int errflg= 0;
-  int i;
+  int i = 0;
   // int j;
   int min;
   int mode= 0;
@@ -194,12 +196,13 @@ int main( int argc, char *argv[] )
  *        NOTE: i initialized above getopt loop.
  */
 
-  for (; optind < argc; optind++, i++) {
+  for (; optind < argc; optind++) {
       if (i >= 3) {
           fprintf(stderr, "%s ERROR: Too many inputs!\n", pgm);
           return 1;
       }
       in[i] = atof(argv[optind]);
+      i++;
   }
   
   if (i < 3) {
@@ -215,15 +218,24 @@ int main( int argc, char *argv[] )
     if( west == 1 )
       in[1]= fmod( 360.0-in[1], 360.0 );
 
-      printf("in : %16.10f %16.10lf %13.5lf lat lon alt\n", in[0], in[1], in[2]);
+      lat = in[0];
+      lon = in[1];
+      alt = in[2];
+      printf("in : %16.10f %16.10lf %13.5lf lat lon alt\n", lat, lon, alt);
       
       plh2xyz( in, out, emajor, eflat );
-
-      printf( "out: %13.4lf %13.4lf %13.4lf X Y Z\n", out[0], out[1], out[2] );
+      X = out[0];
+      Y = out[1];
+      Z = out[2];
+      printf( "out: %13.4lf %13.4lf %13.4lf X Y Z\n", X, Y, Z );
       
   } else {
-
-      printf("in : %16.10f %16.10lf %13.5lf X Y Z\n", (west ? (in[0] * -1.0) : in[0]), in[1], in[2]);
+  
+      // X = ((west == 1) ? (in[0] * -1.0) : in[0]);
+      X = in[0];
+      Y = in[1];
+      Z = in[2];
+      printf("in : %16.10f %16.10lf %13.5lf X Y Z\n", X, Y, Z);
       xyz2plh( in, out, emajor, eflat );
       //plh2xyz(out, res, emajor, eflat);
 
@@ -231,18 +243,21 @@ int main( int argc, char *argv[] )
           out[1] = fmod(360.0 - out[1], 360.0);
           //res[0] *= -1;
       }
+      lat = out[0];
+      lon = out[1];
+      alt = out[2];
       if (display == 1) {
         /* show results in DMS form */
-          degdms(out[0], &deg, &min, &sec);
+          degdms(lat, &deg, &min, &sec);
           printf("out: %3d %2d %8.5lf", deg, min, sec);
 
-          degdms(out[1], &deg, &min, &sec);
+          degdms(lon, &deg, &min, &sec);
           printf(" %3d %2d %8.5lf", deg, min, sec);
 
-          printf(" %13.8lf lat lon alt\n", out[2]);
+          printf(" %13.8lf lat lon alt\n", alt);
       }
       else {
-          printf("out: %16.10f %16.10lf %13.5lf lat lon alt\n", out[0], out[1], out[2]);
+          printf("out: %16.10f %16.10lf %13.5lf lat lon alt\n", lat, lon, alt);
       }
   }
 
