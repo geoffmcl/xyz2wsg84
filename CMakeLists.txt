@@ -41,6 +41,7 @@ if(WIN32 AND MSVC)
     set( CMAKE_DEBUG_POSTFIX "d" )
 else()
     # items for unix
+    list(APPEND add_LIBS m)
 endif()
 
 set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${WARNING_FLAGS} ${MSVC_FLAGS} -D_REENTRANT" )
