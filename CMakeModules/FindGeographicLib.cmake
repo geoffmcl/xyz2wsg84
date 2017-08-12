@@ -10,6 +10,7 @@ find_library (GeographicLib_LIBRARIES Geographic
   PATHS "${CMAKE_INSTALL_PREFIX}/../GeographicLib/lib")
 
 if (GeographicLib_LIBRARIES)
+  message(STATUS "--- Found GeographicLib_LIBRARIES=${GeographicLib_LIBRARIES}")
   get_filename_component (GeographicLib_LIBRARY_DIRS
     "${GeographicLib_LIBRARIES}" PATH)
   get_filename_component (_ROOT_DIR "${GeographicLib_LIBRARY_DIRS}" PATH)
@@ -35,13 +36,25 @@ if (GeographicLib_LIBRARIES)
     set (GeographicLib_INCLUDE_DIRS "${_ROOT_DIR}/include")
     set (GeographicLib_BINARY_DIRS "${_ROOT_DIR}/bin")
     if (NOT EXISTS "${GeographicLib_INCLUDE_DIRS}/GeographicLib/Config.h")
+      message(STATUS "--- NOT Found ${GeographicLib_INCLUDE_DIRS}/GeographicLib/Config.h")
       unset (GeographicLib_INCLUDE_DIRS)
       unset (GeographicLib_LIBRARIES)
       unset (GeographicLib_LIBRARY_DIRS)
       unset (GeographicLib_BINARY_DIRS)
     endif ()
+  else ()
+    message(STATUS "--- Found ${GeographicLib_INCLUDE_DIRS}/GeographicLib/Config.h")
+    if (GeographicLib_LIBRARY_DIRS AND GeographicLib_LIBRARIES AND GeographicLib_INCLUDE_DIRS)
+        message(STATUS "--- Should be a SUCCESS!")
+        set(GeographicLib_FOUND 1)
+        set(GEOGRAPHICLIB_FOUND 1)
+    else ()
+        message(STATUS "--- OOPS! Why did this FAIL!")
+    endif ()
   endif ()
   unset (_ROOT_DIR)
+else ()
+  message(STATUS "--- NOT Found GeographicLib")
 endif ()
 
 include (FindPackageHandleStandardArgs)
@@ -49,3 +62,6 @@ find_package_handle_standard_args (GeographicLib DEFAULT_MSG
   GeographicLib_LIBRARY_DIRS GeographicLib_LIBRARIES GeographicLib_INCLUDE_DIRS)
 mark_as_advanced (GeographicLib_LIBRARY_DIRS GeographicLib_LIBRARIES
   GeographicLib_INCLUDE_DIRS)
+  
+# eof
+
