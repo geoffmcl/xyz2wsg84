@@ -9,3 +9,8 @@ cmake_install.cmake
 x64/*
 *.dir/*
 *.sln
+Makefile
+libxyzutils.a
+xyz2wsg
+xyz2wsg84
+
